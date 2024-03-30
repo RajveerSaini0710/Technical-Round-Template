@@ -2,25 +2,33 @@
     <section class='flex justify-center '>
         <BaseCard class="flex justify-center items-center flex-col">
             <h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Fill This Form :</h1>
-            <div class="flex flex-col items-center mb-4 flex-wrap gap-4 ml-4 w-full ">
-                <input v-model="formData.name" placeholder="Name"
-                    class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  " />
-                <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.name }}</p>
-                <input v-model="formData.phone" placeholder="Phone"
-                    class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
-                    :errorMessage="formError.phone" />
-                <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.phone }}
-                </p>
-                <input v-model="formData.email" placeholder="Email"
-                    class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
-                    :errorMessage="formError.email" />
-                <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.email }}
-                </p>
-                <input v-model="formData.address" placeholder="Address"
-                    class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
-                    :errorMessage="formError.address" />
-                <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.address }}
-                </p>
+            <div class=" mb-4 flex-wrap gap-4 ml-4 w-full ">
+                <div class="w-full flex justify-center items-center flex-col mb-8">
+                    <input v-model="formData.name" placeholder="Name"
+                        class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  " />
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.name }}</p>
+                </div>
+                <div class="w-full flex justify-center items-center flex-col mb-8">
+                    <input v-model="formData.phone" placeholder="Phone"
+                        class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
+                        :errorMessage="formError.phone" />
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.phone }}
+                    </p>
+                </div>
+                <div class="w-full flex justify-center items-center flex-col mb-8">
+                    <input v-model="formData.email" placeholder="Email"
+                        class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
+                        :errorMessage="formError.email" />
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.email }}
+                    </p>
+                </div>
+                <div class="w-full flex justify-center items-center flex-col mb-8">
+                    <input v-model="formData.address" placeholder="Address"
+                        class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
+                        :errorMessage="formError.address" />
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.address }}
+                    </p>
+                </div>
 
             </div>
             <button @click.prevent="submitFormData"
