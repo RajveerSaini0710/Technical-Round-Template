@@ -6,27 +6,27 @@
                 <div class="w-full flex justify-center items-center flex-col mb-8">
                     <input v-model="formData.name" placeholder="Name"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  " />
-                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.name }}</p>
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start w-1/2">{{ formError.name }}</p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
                     <input v-model="formData.phone" placeholder="Phone"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
                         :errorMessage="formError.phone" />
-                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.phone }}
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start w-1/2">{{ formError.phone }}
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
                     <input v-model="formData.email" placeholder="Email"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
                         :errorMessage="formError.email" />
-                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.email }}
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start w-1/2">{{ formError.email }}
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
                     <input v-model="formData.address" placeholder="Address"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
                         :errorMessage="formError.address" />
-                    <p v-if="formError.name" class="text-red-500 font-bold text-start">{{ formError.address }}
+                    <p v-if="formError.name" class="text-red-500 font-bold text-start w-1/2">{{ formError.address }}
                     </p>
                 </div>
 
