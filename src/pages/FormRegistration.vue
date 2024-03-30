@@ -1,5 +1,5 @@
 <template>
-    <section class='flex justify-center '>
+    <section class='flex justify-center flex-col items-center '>
         <BaseCard class="flex justify-center items-center flex-col">
             <h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Fill This Form :</h1>
             <div class=" mb-4 flex-wrap gap-4 ml-4 w-full ">
@@ -34,6 +34,8 @@
             <button @click.prevent="submitFormData"
                 class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl ">Submit</button>
         </BaseCard>
+        <button @click.prevent="goToFormDataPage"
+            class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl ">Form Data</button>
     </section>
 </template>
 
@@ -80,6 +82,9 @@ export default {
                 formDataValid.value = false
             }
         }
+        const goToFormDataPage = () => {
+            router.push('/form-data')
+        }
 
         function submitFormData() {
             validateForm();
@@ -96,7 +101,7 @@ export default {
             }
         }
 
-        return { formData, formError, validateForm, submitFormData, formDataValid };
+        return { formData, formError, validateForm, submitFormData, formDataValid, goToFormDataPage };
     },
 };
 </script>
