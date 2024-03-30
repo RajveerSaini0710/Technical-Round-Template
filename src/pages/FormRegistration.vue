@@ -55,7 +55,22 @@ export default {
 
         function validateForm() {
             formDataValid.value = true;
-            // Your validation logic
+            if (!formData.name) {
+                formError.name = 'Name Is Required'
+                formDataValid.value = false
+            }
+            if (!formData.phone) {
+                formError.phone = 'Phone Number Is Required'
+                formDataValid.value = false
+            }
+            if (!formData.email) {
+                formError.email = 'Email Id Is Required'
+                formDataValid.value = false
+            }
+            if (!formData.address) {
+                formError.address = 'Address Is Required'
+                formDataValid.value = false
+            }
         }
 
         function submitFormData() {
