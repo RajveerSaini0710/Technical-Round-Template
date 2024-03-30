@@ -30,65 +30,50 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios'
-export default {
-    components: {
+import { useStore } from 'vuex';
 
-    },
+
+export default {
     setup() {
+        const store = useStore();
         const router = useRouter();
         const formData = reactive({
             name: null,
             phone: null,
             email: null,
-            address: null
-        })
+            address: null,
+        });
         const formError = reactive({
             name: null,
             phone: null,
             email: null,
-            address: null
-        })
-        const formDataValid = ref(false)
+            address: null,
+        });
+        const formDataValid = ref(false);
+
         function validateForm() {
-            formDataValid.value = true
-            if (!formData.name) {
-                formError.name = "Please Enter Your Name"
-                formDataValid.value = false
-            }
-            if (!formData.phone) {
-                formError.phone = "Please Enter Your Phone Number"
-                formDataValid.value = false
-            }
-            if (!formData.email) {
-                formError.email = "Please Enter Your Email"
-                formDataValid.value = false
-            }
-            if (!formData.address) {
-                formError.address = "Please Enter Your Address"
-                formDataValid.value = false
-            }
+            formDataValid.value = true;
+            // Your validation logic
         }
+
         function submitFormData() {
-            validateForm()
+            validateForm();
             if (!formDataValid.value) {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                const payload = {
-                    name: formData.name,
-                    phone: formData.phone,
-                    email: formData.email,
-                    address: formData.address,
-                }
-                axios.post('https://saini-lifters-default-rtdb.firebaseio.com/form.json', payload).then((res) => {
-                    console.log(res)
-                    router.push('/form-data')
-                })
+                store.commit('formData/setFormData', formData);
+                store.dispatch('formData/submitForm').then(() => {
+                    router.push('/form-data');
+                    store.commit('formData/clearFormData');
+                }).catch((error) => {
+                    console.error('Failed to submit form:', error);
+                });
             }
         }
-        return { formData, formError, validateForm, submitFormData }
+
+        return { formData, formError, validateForm, submitFormData };
     },
-}
+};
 </script>
