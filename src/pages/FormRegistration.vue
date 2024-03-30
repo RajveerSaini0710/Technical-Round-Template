@@ -96,7 +96,7 @@ export default {
             }
         }
 
-        return { formData, formError, validateForm, submitFormData };
+        return { formData, formError, validateForm, submitFormData, formDataValid };
     },
 };
 </script>
