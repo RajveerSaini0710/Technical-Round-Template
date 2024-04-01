@@ -23,7 +23,7 @@
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model.trim="formData.address" placeholder="Address"
+                    <input type="email" v-model.trim="formData.address" placeholder="Address"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
                         :errorMessage="formError.address" />
                     <p v-if="formError.address" class="text-red-500 font-bold text-start w-1/2">{{ formError.address }}
@@ -66,21 +66,34 @@ export default {
 
         function validateForm() {
             formDataValid.value = true;
+            formError.name = ''
+            formError.phone = ''
+            formError.email = ''
+            formError.address = ''
+
             if (!formData.name) {
                 formError.name = 'Name Is Required'
                 formDataValid.value = false
+                return
             }
             if (!formData.phone) {
                 formError.phone = 'Phone Number Is Required'
                 formDataValid.value = false
+                return
             }
             if (!formData.email) {
-                formError.email = 'Email Id Is Required'
-                formDataValid.value = false
+                formError.email = 'Email Id Is Required';
+                formDataValid.value = false;
+                return
+            } else if (!formData.email.includes('@')) {
+                formError.email = 'Please Check your Email ID';
+                formDataValid.value = false;
+                return
             }
             if (!formData.address) {
                 formError.address = 'Address Is Required'
                 formDataValid.value = false
+                return
             }
         }
         const goToFormDataPage = () => {
