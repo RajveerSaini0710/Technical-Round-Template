@@ -4,26 +4,26 @@
             <h1 class="text-purple-700 inline-block font-black text-2xl mb-6">Fill This Form :</h1>
             <div class=" mb-4 flex-wrap gap-4 ml-4 w-full ">
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model="formData.name" placeholder="Name"
+                    <input v-model.trim="formData.name" placeholder="Name"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  " />
                     <p v-if="formError.name" class="text-red-500 font-bold text-start w-1/2">{{ formError.name }}</p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model="formData.phone" placeholder="Phone"
+                    <input v-model.trim="formData.phone" placeholder="Phone"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
                         :errorMessage="formError.phone" />
                     <p v-if="formError.phone" class="text-red-500 font-bold text-start w-1/2">{{ formError.phone }}
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model="formData.email" placeholder="Email"
+                    <input v-model.trim="formData.email" placeholder="Email"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
                         :errorMessage="formError.email" />
                     <p v-if="formError.email" class="text-red-500 font-bold text-start w-1/2">{{ formError.email }}
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model="formData.address" placeholder="Address"
+                    <input v-model.trim="formData.address" placeholder="Address"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
                         :errorMessage="formError.address" />
                     <p v-if="formError.address" class="text-red-500 font-bold text-start w-1/2">{{ formError.address }}
@@ -43,6 +43,7 @@
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { debounce } from 'lodash'
 
 
 export default {
@@ -86,8 +87,8 @@ export default {
             router.push('/form-data')
         }
 
-        function submitFormData() {
-            validateForm();
+        const submitFormData = debounce(async () => {
+            await validateForm();
             if (!formDataValid.value) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -99,7 +100,7 @@ export default {
                     console.error('Failed to submit form:', error);
                 });
             }
-        }
+        }, 300)
 
         return { formData, formError, validateForm, submitFormData, formDataValid, goToFormDataPage };
     },
