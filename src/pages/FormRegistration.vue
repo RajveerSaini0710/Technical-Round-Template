@@ -16,14 +16,14 @@
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input v-model.trim="formData.email" placeholder="Email"
+                    <input type="email" v-model.trim="formData.email" placeholder="Email"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2 w-1/2  "
                         :errorMessage="formError.email" />
                     <p v-if="formError.email" class="text-red-500 font-bold text-start w-1/2">{{ formError.email }}
                     </p>
                 </div>
                 <div class="w-full flex justify-center items-center flex-col mb-8">
-                    <input type="email" v-model.trim="formData.address" placeholder="Address"
+                    <input v-model.trim="formData.address" placeholder="Address"
                         class="mr-12 border-2 h-10 border-violet-700 rounded indent-2  w-1/2 "
                         :errorMessage="formError.address" />
                     <p v-if="formError.address" class="text-red-500 font-bold text-start w-1/2">{{ formError.address }}
