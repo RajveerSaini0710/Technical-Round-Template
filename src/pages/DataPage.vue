@@ -23,33 +23,29 @@
     </section>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 
-export default {
-    setup() {
-        const router = useRouter()
-        const formData = ref([])
+const router = useRouter()
+const formData = ref([])
 
-        const getFormData = () => {
-            axios.get('https://saini-lifters-default-rtdb.firebaseio.com/form.json')
-                .then((res) => {
-                    formData.value = Object.values(res.data)
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error)
-                })
-        }
-
-        const goBackToRegistrationPage = () => {
-            router.push('/')
-        }
-
-        onMounted(getFormData)
-
-        return { formData, getFormData, goBackToRegistrationPage }
-    }
+const getFormData = () => {
+    axios.get('https://saini-lifters-default-rtdb.firebaseio.com/form.json')
+        .then((res) => {
+            formData.value = res.data
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error)
+        })
 }
+
+const goBackToRegistrationPage = () => {
+    router.push('/')
+}
+
+onMounted(getFormData)
+
+
 </script>

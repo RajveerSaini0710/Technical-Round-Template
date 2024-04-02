@@ -12,27 +12,31 @@ const store = createStore({
 				address: null,
 			}),
 			mutations: {
-				setFormData(state, formData) {
-					state.name = formData.name
-					state.phone = formData.phone
-					state.email = formData.email
-					state.address = formData.address
+				setFormData(state, payload) {
+					state.name = payload.name
+					state.phone = payload.phone
+					state.email = payload.email
+					state.address = payload.address
+					console.log(state, payload.name, payload.phone, payload.email, payload.address, 'form Data')
 				},
 				clearFormData(state) {
 					state.name = null
 					state.phone = null
 					state.email = null
 					state.address = null
+					console.log('clear form', state)
 				},
 			},
 			actions: {
-				submitForm({ commit, state }) {
+				submitForm(context, formData) {
 					const payload = {
-						name: state.name,
-						phone: state.phone,
-						email: state.email,
-						address: state.address,
+						name: formData.name,
+						phone: formData.phone,
+						email: formData.email,
+						address: formData.address,
 					}
+					context.commit('setFormData', payload)
+					context.commit('clearFormData')
 					return axios.post('https://saini-lifters-default-rtdb.firebaseio.com/form.json', payload)
 				},
 			},

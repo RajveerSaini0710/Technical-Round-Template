@@ -39,83 +39,76 @@
     </section>
 </template>
 
-<script>
+<script setup>
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { debounce } from 'lodash'
 
 
-export default {
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-        const formData = reactive({
-            name: null,
-            phone: null,
-            email: null,
-            address: null,
+const store = useStore();
+const router = useRouter();
+const formData = reactive({
+    name: null,
+    phone: null,
+    email: null,
+    address: null,
+});
+const formError = reactive({
+    name: null,
+    phone: null,
+    email: null,
+    address: null,
+});
+const formDataValid = ref(false);
+
+function validateForm() {
+    formDataValid.value = true;
+    formError.name = ''
+    formError.phone = ''
+    formError.email = ''
+    formError.address = ''
+
+    if (!formData.name) {
+        formError.name = 'Name Is Required'
+        formDataValid.value = false
+        return
+    }
+    if (!formData.phone) {
+        formError.phone = 'Phone Number Is Required'
+        formDataValid.value = false
+        return
+    }
+    if (!formData.email) {
+        formError.email = 'Email Id Is Required';
+        formDataValid.value = false;
+        return
+    } else if (!formData.email.includes('@')) {
+        formError.email = 'Please Check your Email ID';
+        formDataValid.value = false;
+        return
+    }
+    if (!formData.address) {
+        formError.address = 'Address Is Required'
+        formDataValid.value = false
+        return
+    }
+}
+const goToFormDataPage = () => {
+    router.push('/form-data')
+}
+
+const submitFormData = debounce(async () => {
+    await validateForm();
+    if (!formDataValid.value) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        store.dispatch('formData/submitForm', formData).then(() => {
+            router.push('/form-data');
+        }).catch((error) => {
+            console.error('Failed to submit form:', error);
         });
-        const formError = reactive({
-            name: null,
-            phone: null,
-            email: null,
-            address: null,
-        });
-        const formDataValid = ref(false);
+    }
+}, 300)
 
-        function validateForm() {
-            formDataValid.value = true;
-            formError.name = ''
-            formError.phone = ''
-            formError.email = ''
-            formError.address = ''
-
-            if (!formData.name) {
-                formError.name = 'Name Is Required'
-                formDataValid.value = false
-                return
-            }
-            if (!formData.phone) {
-                formError.phone = 'Phone Number Is Required'
-                formDataValid.value = false
-                return
-            }
-            if (!formData.email) {
-                formError.email = 'Email Id Is Required';
-                formDataValid.value = false;
-                return
-            } else if (!formData.email.includes('@')) {
-                formError.email = 'Please Check your Email ID';
-                formDataValid.value = false;
-                return
-            }
-            if (!formData.address) {
-                formError.address = 'Address Is Required'
-                formDataValid.value = false
-                return
-            }
-        }
-        const goToFormDataPage = () => {
-            router.push('/form-data')
-        }
-
-        const submitFormData = debounce(async () => {
-            await validateForm();
-            if (!formDataValid.value) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                store.commit('formData/setFormData', formData);
-                store.dispatch('formData/submitForm').then(() => {
-                    router.push('/form-data');
-                    store.commit('formData/clearFormData');
-                }).catch((error) => {
-                    console.error('Failed to submit form:', error);
-                });
-            }
-        }, 300)
-
-        return { formData, formError, validateForm, submitFormData, formDataValid, goToFormDataPage };
-    },
-};
 </script>
