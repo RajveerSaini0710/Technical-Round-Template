@@ -32,7 +32,7 @@ const router = useRouter()
 const formData = ref([])
 
 const getFormData = () => {
-    axios.get('https://saini-lifters-default-rtdb.firebaseio.com/form.json')
+    axios.get('https://saini-lifters-default-rtdb.firebaseio.com/technicalForm.json')
         .then((res) => {
             formData.value = res.data
         })

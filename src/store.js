@@ -37,7 +37,7 @@ const store = createStore({
 					}
 					context.commit('setFormData', payload)
 					context.commit('clearFormData')
-					return axios.post('https://saini-lifters-default-rtdb.firebaseio.com/form.json', payload)
+					return axios.post('https://saini-lifters-default-rtdb.firebaseio.com/technicalForm.json', payload)
 				},
 			},
 		},
