@@ -24,7 +24,6 @@ const store = createStore({
 					state.phone = null
 					state.email = null
 					state.address = null
-					console.log('clear form', state)
 				},
 			},
 			actions: {
