@@ -35,18 +35,28 @@
                 class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl ">Submit</button>
         </BaseCard>
         <button @click.prevent="goToFormDataPage"
-            class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl ">Form Data</button>
+            class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl mb-6 ">Form Data</button>
+        <button @click.prevent="addCount" class="bg-violet-700 text-white font-bold py-2 px-4 text-xl rounded-xl ">{{
+                        count ? count :
+                            "Count" }}</button>
     </section>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { debounce } from 'lodash'
 
 
 const store = useStore();
+
+const count = computed(() => { return store.getters.getCount })
+
+const addCount = () => {
+    store.commit('setCount')
+}
+
 const router = useRouter();
 const formData = reactive({
     name: null,
@@ -103,7 +113,7 @@ const submitFormData = debounce(async () => {
     if (!formDataValid.value) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        store.dispatch('formData/submitForm', formData).then(() => {
+        store.dispatch('submitForm', formData).then(() => {
             router.push('/form-data');
         }).catch((error) => {
             console.error('Failed to submit form:', error);

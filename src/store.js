@@ -4,12 +4,12 @@ import axios from 'axios'
 const store = createStore({
 	modules: {
 		formData: {
-			namespaced: true,
 			state: () => ({
 				name: null,
 				phone: null,
 				email: null,
 				address: null,
+				count: 0,
 			}),
 			mutations: {
 				setFormData(state, payload) {
@@ -25,6 +25,9 @@ const store = createStore({
 					state.email = null
 					state.address = null
 				},
+				setCount(state) {
+					state.count += 1
+				},
 			},
 			actions: {
 				submitForm(context, formData) {
@@ -37,6 +40,11 @@ const store = createStore({
 					context.commit('setFormData', payload)
 					context.commit('clearFormData')
 					return axios.post('https://coach-is-here-default-rtdb.firebaseio.com/technicalForm.json', payload)
+				},
+			},
+			getters: {
+				getCount(state) {
+					return state.count
 				},
 			},
 		},
